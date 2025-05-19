@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 				description="This API will register and get you the existing records of students"
 				),
 		servers=@Server(
-				url="http://3.109.210.216:8484/StudentRecordManagementSystemApp",
+				url="/StudentRecordManagementSystemApp",
 				description="This API is deployed in the above url"
 				)
 		)
