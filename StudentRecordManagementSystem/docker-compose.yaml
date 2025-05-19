@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=test123
+      - MYSQL_DATABASE=studentdb
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - springboot-db-net
+  application:
+    build: .
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+
+    ports:
+      - "8484:8484"
+    networks:
+      - springboot-db-net
+    volumes:
+      - /data/springboot-app
+
+
+networks:
+  springboot-db-net:
